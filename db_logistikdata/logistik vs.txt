@@ -1,0 +1,234 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace Logistik
+{
+    public partial class Master_Data : Form
+    
+    {
+        SqlConnection con = new SqlConnection("Data Source=DIVAANDRADE10;Initial Catalog=LogistikData;Integrated Security=true;");
+
+        SqlCommand cmd;
+        SqlDataAdapter adapt;
+
+        public Master_Data()
+        {
+            InitializeComponent();
+            DisplayData();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (txtnsasan.Text != "")
+            {
+                cmd = new SqlCommand("insert into dbo.sasans(Sasan)values(@sasan)",con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@sasan", txtnsasan.Text);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                MessageBox.Show("Sasan hatama ona.Obrigada!");
+                DisplayData();
+                ClearData();
+            }
+            else
+            {
+                MessageBox.Show("Favor Hatama Naran Sasan");
+            }
+        }
+
+        //Display Data in Datagridview
+        private void DisplayData()
+        {
+     con.Open();
+            DataTable dt=new DataTable();
+            adapt = new SqlDataAdapter("select * from dbo.Sasans", con);
+            adapt.Fill(dt);
+            dgvsasan.DataSource = dt;
+            con.Close();
+        }
+
+        //clear data
+        private void ClearData()
+        {
+            txtnsasan.Text ="";
+        }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        
+        }
+
+        private void btnclose_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form_Menu fm = new Form_Menu();
+            fm.ShowDialog();
+        }
+
+      //Supplier
+
+        
+        private void btnsupplier_Click(object sender, EventArgs e)
+        {
+            if (txtnsupplier.Text != "")
+            {
+                cmd = new SqlCommand("insert into dbo.suppliers(Supplier)values(@supplier)", con);
+                con.Open();
+                cmd.Parameters.AddWithValue("@supplier", txtnsupplier.Text);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Naran Supplier hatama ona.Obrigada!");
+                DisplayDatasupplier();
+                ClearDatasupplier();
+            }
+            else
+            {
+                MessageBox.Show("Favor Hatama Naran Supplier");
+            }
+        }
+
+             //Display Data in Datagridview
+        private void DisplayDatasupplier()
+        {
+     con.Open();
+            DataTable dt=new DataTable();
+            adapt = new SqlDataAdapter("select * from dbo.Suppliers", con);
+            adapt.Fill(dt);
+            dgvsasan.DataSource = dt;
+            con.Close();
+        }
+
+        //clear data
+        private void ClearDatasupplier()
+        {
+            txtnsupplier.Text ="";
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+
+         {
+        SqlConnection con = new SqlConnection("Data Source=DIVAANDRADE10;Initial Catalog=LogistikData;Integrated Security=true;");
+
+        SqlCommand cmd;
+        SqlDataAdapter adapt;
+
+            public Master_Data()
+        {
+            InitializeComponent();
+            DisplayDatasupplier();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+        
+        }
+
+
+        }
+
+        }
+
+
+   
+
+//koneksaun
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Data;
+namespace Logistik
+{
+    public class koneksaun
+    {
+
+        SqlConnection con = new SqlConnection("Data source=DIVAANDRADE10;Initial Catalog=LogistikData; Integrated Security=true");
+
+     public SqlConnection Activekon()
+    {
+         if(con.State== ConnectionState.Closed)
+         {
+            con.Open();
+         }
+         return con;
+     }
+   }
+}
+
+
+
+---form login
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+namespace Logistik
+{
+    public partial class Form_Login : Form
+    {
+        public Form_Login()
+        {
+            InitializeComponent();
+        }
+
+        private void btnlogin_Click(object sender, EventArgs e)
+        {
+            if (txtuser.Text == "" && txtpass.Text == "")
+            {
+                MessageBox.Show("Halo favor hatama Username no Password");
+                return;
+            }
+            try
+            {
+                //create sqlconnection
+                SqlConnection con = new SqlConnection("Data Source=DIVAANDRADE10;Initial Catalog=LogistikData;Integrated Security=true;");
+                SqlCommand cmd = new SqlCommand("select * from dbo.Login where username=@username and password=@password", con);
+                cmd.Parameters.AddWithValue("@username", txtuser.Text);
+                cmd.Parameters.AddWithValue("@password", txtpass.Text);
+                con.Open();
+                SqlDataAdapter adapt = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                adapt.Fill(ds);
+                con.Close();
+                int count = ds.Tables[0].Rows.Count;
+
+                //if count is equal to 1,than show Form_Menu
+                if (count == 1)
+                {
+                    MessageBox.Show("Login Successful!");
+                    this.Hide();
+                    Form_Menu fm = new Form_Menu();
+                    fm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Login Failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnexit_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+    }
+}

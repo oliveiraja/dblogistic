@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0DB71FFB-78A6-4665-ABC2-5E3EEE9F78DD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>logistik1</RootNamespace>
+    <AssemblyName>logistik1</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logoss.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>C:\Users\jose.arranhado\Documents\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.WebForms.10.0.40219.1\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.WinForms.v12.12.0.0.1\lib\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Libraries\DAL.cs" />
+    <Compile Include="Form\Form_armajen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_armajen.Designer.cs">
+      <DependentUpon>Form_armajen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_Marka.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_Marka.Designer.cs">
+      <DependentUpon>Form_Marka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_Modelu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_Modelu.Designer.cs">
+      <DependentUpon>Form_Modelu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_SubKategori.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_SubKategori.Designer.cs">
+      <DependentUpon>Form_SubKategori.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_armajen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_armajen.Designer.cs">
+      <DependentUpon>Form_armajen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_armajenstock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_armajenstock.Designer.cs">
+      <DependentUpon>Form_armajenstock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_departemento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_departemento.Designer.cs">
+      <DependentUpon>Form_departemento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_Kategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_Kategoria.Designer.cs">
+      <DependentUpon>Form_Kategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_sasansai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_sasansai.Designer.cs">
+      <DependentUpon>Form_sasansai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_sasantama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_sasantama.Designer.cs">
+      <DependentUpon>Form_sasantama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Form_supplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Form_supplier.Designer.cs">
+      <DependentUpon>Form_supplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_sasan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_sasan.Designer.cs">
+      <DependentUpon>Form_sasan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmatk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmatk.Designer.cs">
+      <DependentUpon>frmatk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi\Frmautenticatio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi\Frmautenticatio.Designer.cs">
+      <DependentUpon>Frmautenticatio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frmcek.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmcek.Designer.cs">
+      <DependentUpon>Frmcek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\Frmindex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\Frmindex.Designer.cs">
+      <DependentUpon>Frmindex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frmkodigo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmkodigo.Designer.cs">
+      <DependentUpon>Frmkodigo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi\Frmlogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi\Frmlogin.Designer.cs">
+      <DependentUpon>Frmlogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\Frmmenusai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\Frmmenusai.Designer.cs">
+      <DependentUpon>Frmmenusai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\Frmparameters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\Frmparameters.Designer.cs">
+      <DependentUpon>Frmparameters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frmpatrimon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmpatrimon.Designer.cs">
+      <DependentUpon>Frmpatrimon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frmpatrimoni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmpatrimoni.Designer.cs">
+      <DependentUpon>Frmpatrimoni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frmreport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmreport.Designer.cs">
+      <DependentUpon>Frmreport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frmupdatesasantama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frmupdatesasantama.Designer.cs">
+      <DependentUpon>Frmupdatesasantama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\Homeparameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\Homeparameter.Designer.cs">
+      <DependentUpon>Homeparameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\homepatrimoni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\homepatrimoni.Designer.cs">
+      <DependentUpon>homepatrimoni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\Homesasantama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\Homesasantama.Designer.cs">
+      <DependentUpon>Homesasantama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\h_atk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\h_atk.Designer.cs">
+      <DependentUpon>h_atk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libraries\KoneksaunDb.cs" />
+    <Compile Include="Dahboard\Listaatk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\Listaatk.Designer.cs">
+      <DependentUpon>Listaatk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\listapatrimoni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\listapatrimoni.Designer.cs">
+      <DependentUpon>listapatrimoni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\listasasansai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\listasasansai.Designer.cs">
+      <DependentUpon>listasasansai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\listasasantama.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\listasasantama.Designer.cs">
+      <DependentUpon>listasasantama.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dahboard\Menuparameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dahboard\Menuparameter.Designer.cs">
+      <DependentUpon>Menuparameter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="Form\Form_armajen.resx">
+      <DependentUpon>Form_armajen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_Marka.resx">
+      <DependentUpon>Form_Marka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_Modelu.resx">
+      <DependentUpon>Form_Modelu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_SubKategori.resx">
+      <DependentUpon>Form_SubKategori.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_armajen.resx">
+      <DependentUpon>Form_armajen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_armajenstock.resx">
+      <DependentUpon>Form_armajenstock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_departemento.resx">
+      <DependentUpon>Form_departemento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_Kategoria.resx">
+      <DependentUpon>Form_Kategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_sasansai.resx">
+      <DependentUpon>Form_sasansai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_sasantama.resx">
+      <DependentUpon>Form_sasantama.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Form_supplier.resx">
+      <DependentUpon>Form_supplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_sasan.resx">
+      <DependentUpon>Form_sasan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmatk.resx">
+      <DependentUpon>frmatk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Konfigurasi\Frmautenticatio.resx">
+      <DependentUpon>Frmautenticatio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmcek.resx">
+      <DependentUpon>Frmcek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\Frmindex.resx">
+      <DependentUpon>Frmindex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmkodigo.resx">
+      <DependentUpon>Frmkodigo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Konfigurasi\Frmlogin.resx">
+      <DependentUpon>Frmlogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\Frmmenusai.resx">
+      <DependentUpon>Frmmenusai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\Frmparameters.resx">
+      <DependentUpon>Frmparameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmpatrimon.resx">
+      <DependentUpon>Frmpatrimon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmpatrimoni.resx">
+      <DependentUpon>Frmpatrimoni.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmreport.resx">
+      <DependentUpon>Frmreport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frmupdatesasantama.resx">
+      <DependentUpon>Frmupdatesasantama.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\Homeparameter.resx">
+      <DependentUpon>Homeparameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\homepatrimoni.resx">
+      <DependentUpon>homepatrimoni.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\Homesasantama.resx">
+      <DependentUpon>Homesasantama.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\h_atk.resx">
+      <DependentUpon>h_atk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\Listaatk.resx">
+      <DependentUpon>Listaatk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\listapatrimoni.resx">
+      <DependentUpon>listapatrimoni.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\listasasansai.resx">
+      <DependentUpon>listasasansai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\listasasantama.resx">
+      <DependentUpon>listasasantama.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dahboard\Menuparameter.resx">
+      <DependentUpon>Menuparameter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\usp_reportviewer_Result.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logoss.ico" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

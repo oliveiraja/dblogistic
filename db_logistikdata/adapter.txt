@@ -1,0 +1,2 @@
+Data Adapter : Berfungsi untuk mengisi dataset dan memperbaharui database.
+Data Reader : Berfungsi untuk membaca data dari database secara stream dan dibaca perbaris.

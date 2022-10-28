@@ -1,0 +1,556 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace logistik1
+{
+    public partial class Form_sasantama : Form
+    {
+        public Form_sasantama()
+        {
+            InitializeComponent();
+            LoadSupplier();
+            LoadSasan();
+            LoadArmajen();
+            LoadSasanTama();
+            btncancel.PerformClick();
+            
+        }
+
+        //method load supplier
+        private void LoadSupplier()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_Supplier_View", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            cmbsupplier.DisplayMember = "Naran";
+            cmbsupplier.ValueMember = "Id";
+            cmbsupplier.DataSource = dt;
+        }
+
+        //method load sasan
+        private void LoadSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_Sasan_View", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            cmbsasan.DisplayMember = "Naran";
+            cmbsasan.ValueMember = "Id";
+            cmbsasan.DataSource = dt;
+        }
+
+        //method load armajen
+        private void LoadArmajen()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_Armajen_View", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            cmbarmajen.DisplayMember = "Naran";
+            cmbarmajen.ValueMember = "Id";
+            cmbarmajen.DataSource = dt;
+        }
+
+        //method load sasantama
+        private void LoadSasanTama()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_SasanTama_View", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            dgvsasan.DataSource = dt;
+            dgvsasan.Columns[8].Visible = false;
+        }
+
+        //method save sasan
+        private void SaveSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_SasanTama_Insert", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("data_tama", SqlDbType.Date).Value = dateTimePicker1.Value;
+            sda.SelectCommand.Parameters.Add("supplierId", SqlDbType.Int).Value = cmbsupplier.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("sasanId", SqlDbType.Int).Value = cmbsasan.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("presu", SqlDbType.Decimal).Value = txtpresu.Text;
+            sda.SelectCommand.Parameters.Add("qtd", SqlDbType.Int).Value = txtqtd.Text;            
+            sda.SelectCommand.Parameters.Add("armajenID", SqlDbType.Int).Value = cmbarmajen.SelectedValue.ToString();
+            sda.SelectCommand.ExecuteReader();
+            LoadSasanTama();
+            btncancel.PerformClick();
+        }
+
+        //method update sasan
+        private void UpdateSasan()
+        { 
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_SasanTama_Update",kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("id", SqlDbType.Int).Value = txtid.Text;
+            sda.SelectCommand.Parameters.Add("data_tama", SqlDbType.Date).Value = dateTimePicker1.Value;
+            sda.SelectCommand.Parameters.Add("supplierId", SqlDbType.Int).Value = cmbsupplier.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("sasanId", SqlDbType.Int).Value = cmbsasan.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("presu", SqlDbType.Decimal).Value = txtpresu.Text;
+            sda.SelectCommand.Parameters.Add("qtd", SqlDbType.Int).Value = txtqtd.Text;
+            sda.SelectCommand.Parameters.Add("armajenID", SqlDbType.Int).Value = cmbarmajen.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("sasanidtuan", SqlDbType.Int).Value = txtSasanidTuan.Text;
+            sda.SelectCommand.ExecuteReader();
+            LoadSasanTama();
+            btncancel.PerformClick();
+        }
+
+        //method delete sasan
+        private void DeleteSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter ("usp_T_SasanTama_Delete",kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("id",SqlDbType.Int).Value = txtid.Text;
+            sda.SelectCommand.Parameters.Add("sasanId", SqlDbType.Int).Value = cmbsasan.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("armajenID", SqlDbType.Int).Value = cmbarmajen.SelectedValue.ToString();
+            sda.SelectCommand.ExecuteReader();
+            LoadSasanTama();
+            btncancel.PerformClick();
+        }
+
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            if (cmbsupplier.Text != "" || cmbsasan.Text !="" || txtpresu.Text !="" || txtqtd.Text!="" || cmbarmajen.Text!="")
+            {
+                if (txtctrl.Text == "0")
+                {
+                    SaveSasan();                   
+                }
+                else
+                {
+                    UpdateSasan();                               
+                }
+            }
+            else
+            {
+                MessageBox.Show("Prienxe informasaun molok rai dados!");
+            }
+        }
+        
+        private void btncancel_Click(object sender, EventArgs e)
+        {
+            cmbsupplier.Text = "";
+            cmbsasan.Text = "";
+            txtpresu.Text = "";
+            txtqtd.Text = "";
+            txttotal.Text = "";
+            cmbarmajen.Text = "";
+            btnsave.Enabled = true;
+            btndelete.Enabled = false;
+            btnsave.Text = "Save"; 
+            txtid.Text = "";
+            txtctrl.Text = "0";
+            txtctrl.Visible = false;
+            txtid.Visible = false;
+            dateTimePicker1.Focus();
+        }
+
+        private void Form_sasantama_Load(object sender, EventArgs e)
+        {
+            btncancel.PerformClick();
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Ita hakarak delete dadus ida ne'e?", "Delete " + this.Text, MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                DeleteSasan();
+            }
+            else
+            {
+                btncancel.PerformClick();
+            }
+        }
+
+        private void dgvsasan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                
+                DataGridViewRow row = this.dgvsasan.Rows[e.RowIndex];
+                txtid.Text = row.Cells[0].Value.ToString();
+                dateTimePicker1.Value=Convert.ToDateTime(row.Cells[1].Value.ToString());
+                cmbsupplier.Text = row.Cells[2].Value.ToString();
+                cmbsasan.Text = row.Cells[3].Value.ToString();
+                txtpresu.Text = row.Cells[4].Value.ToString();
+                txtqtd.Text = row.Cells[5].Value.ToString();
+                txttotal.Text = row.Cells[6].Value.ToString();
+                cmbarmajen.Text = row.Cells[7].Value.ToString();
+                txtSasanidTuan.Text = row.Cells[8].Value.ToString();
+                txtctrl.Text = "1";
+                btndelete.Enabled = true;
+                btnsave.Text = "Update";                
+            }
+        }
+      
+        private void txtpresu_KeyPress(object sender, KeyPressEventArgs e)
+        {      
+            
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && (e.KeyChar != '.'); 
+            
+        }
+        
+        private void cmbsupplier_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        
+       
+        private void txtqtd_TextChanged(object sender, EventArgs e)
+        {
+
+            if (txtpresu.Text.Length > 0 && txtqtd.Text.Length > 0)
+            {
+                txttotal.Text = (Convert.ToInt32(txtqtd.Text) * Convert.ToDecimal(txtpresu.Text)).ToString();
+            }
+            else if (txtpresu.Text.Length > 0 && txtqtd.Text.Length == 0)
+            {
+                txttotal.Text = txtpresu.Text;
+            }
+            else if (txtqtd.Text.Length > 0 && txtpresu.Text.Length == 0)
+            {
+                txttotal.Text = txtqtd.Text;
+            }
+            else if (txtqtd.Text.Length == 0 && txtpresu.Text.Length == 0)
+            {
+                txttotal.Text = "0";
+            }
+        }
+
+        
+
+       
+
+//formsasan
+
+namespace logistik1
+{
+    public partial class Form_sasan : Form
+    {
+        public Form_sasan()
+        {
+            InitializeComponent();
+            LoadSasan();            
+        }
+
+        //method load sasan
+        private void LoadSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_Sasan_View", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            dgvSasan.DataSource = dt;
+        }
+
+        //method save sasan
+        private void SaveSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_Sasan_Insert", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("naran", SqlDbType.VarChar).Value = txtnsasan.Text;
+            sda.SelectCommand.ExecuteReader();
+            LoadSasan();
+            btncancel.PerformClick();
+        }
+
+        //method update sasan
+        private void UpdateSasan()
+        { 
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_Sasan_Update",kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("id", SqlDbType.Int).Value = txtid.Text;
+            sda.SelectCommand.Parameters.Add("naran", SqlDbType.VarChar).Value = txtnsasan.Text;
+            sda.SelectCommand.ExecuteReader();
+            LoadSasan();
+            btncancel.PerformClick();
+        }
+
+        //method delete sasan
+        private void DeleteSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter ("usp_T_Sasan_Delete",kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("id",SqlDbType.Int).Value = txtid.Text;
+            sda.SelectCommand.ExecuteReader();
+            LoadSasan();
+            btncancel.PerformClick();
+        }
+
+        //save ka update sasan
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            if (txtnsasan.Text != "")
+            {
+                if (txtctrl.Text == "0")
+                {
+                    SaveSasan();
+                }
+                else
+                {
+                    UpdateSasan();
+                    btnsave.Text = "Save";                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("Prienxe informasaun molok rai dados!");
+            }
+        }
+
+        //cancel entry foun,update no delete
+        private void btncancel_Click(object sender, EventArgs e)
+        {
+            txtnsasan.Text = "";
+            txtid.Text = "";
+            txtctrl.Text = "0";
+            btndelete.Enabled = false;
+            btnsave.Enabled = true;
+            btnsave.Text = "Save";
+            txtid.Visible = false;
+            txtctrl.Visible = false;            
+            txtnsasan.Focus();
+        }
+
+        private void dgvSasan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dgvSasan.Rows[e.RowIndex];
+                txtid.Text = row.Cells[0].Value.ToString();
+                txtnsasan.Text = row.Cells[1].Value.ToString();
+                txtctrl.Text = "1";
+                btndelete.Enabled = true;
+                btnsave.Text = "Update";
+            }
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Ita hakarak delete dadus ida ne'e?", "Delete " + this.Text, MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                DeleteSasan();
+            }
+            else
+            {
+                btncancel.PerformClick();
+            }
+        }
+
+        private void Form_sasan_Load(object sender, EventArgs e)
+        {
+            btncancel.PerformClick();
+        }
+
+        
+    }
+}
+
+
+//form sasansai
+namespace logistik1
+{
+    public partial class Form_sasansai : Form
+    {
+        public Form_sasansai()
+        {
+            InitializeComponent();
+            LoadArmajen();
+            LoadDepartemento();
+            LoadSasan();
+            LoadSasanSai();
+            btncancel.PerformClick();
+        }
+
+        //method load departemento
+        private void LoadDepartemento()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter  sda = new SqlDataAdapter("usp_T_Departemento_View", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            cmbdept.DisplayMember = "Naran";
+            cmbdept.ValueMember = "Id";
+            cmbdept.DataSource = dt;
+        }
+
+        //method load sasan
+        private void LoadSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_ArmajenStock_Sasan", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            cmbsasan.DisplayMember = "Naran";
+            cmbsasan.ValueMember = "Id";
+            cmbsasan.DataSource = dt;
+        }
+
+        //method load armajen
+        private void LoadArmajen()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_ArmajenStock_Armajen", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            cmbarmajen.DisplayMember = "Naran";
+            cmbarmajen.ValueMember = "Id";
+            cmbarmajen.DataSource = dt;
+        }
+
+        //method load sasantama
+        private void LoadSasanSai()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_SasanSai_View", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            dgvsasan.DataSource = dt;
+        }
+
+        //method save sasan
+        private void SaveSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_SasanSai_Insert", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("data_sai", SqlDbType.Date).Value = dateTimePicker1.Value;
+            sda.SelectCommand.Parameters.Add("armajenId", SqlDbType.Int).Value = cmbarmajen.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("departementoId", SqlDbType.Int).Value = cmbdept.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("sasanId", SqlDbType.Int).Value = cmbsasan.SelectedValue.ToString();            
+            sda.SelectCommand.Parameters.Add("qtd", SqlDbType.Int).Value = txtqtd.Text;
+            SqlParameter msg = sda.SelectCommand.Parameters.Add("msg", SqlDbType.VarChar, 100);
+            msg.Direction = ParameterDirection.Output;           
+            sda.SelectCommand.ExecuteReader();
+            MessageBox.Show(msg.Value.ToString());
+            LoadSasanSai();
+            btncancel.PerformClick();
+        }
+
+        //method update sasan
+        private void UpdateSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_SasanSai_Update", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("id", SqlDbType.Int).Value = txtid.Text;
+            sda.SelectCommand.Parameters.Add("data_sai", SqlDbType.Date).Value = dateTimePicker1.Value;
+            sda.SelectCommand.Parameters.Add("armajenId", SqlDbType.Int).Value = cmbarmajen.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("departementoId", SqlDbType.Int).Value = cmbdept.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("sasanId", SqlDbType.Int).Value = cmbsasan.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("qtd", SqlDbType.Int).Value = txtqtd.Text;    
+            sda.SelectCommand.ExecuteReader();
+            LoadSasanSai();
+            btncancel.PerformClick();
+        }
+
+        //method delete sasan
+        private void DeleteSasan()
+        {
+            KoneksaunDb kon = new KoneksaunDb();
+            SqlDataAdapter sda = new SqlDataAdapter("usp_T_SasanSai_Delete", kon.Koneksaun());
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            sda.SelectCommand.Parameters.Add("id", SqlDbType.Int).Value = txtid.Text;
+            sda.SelectCommand.Parameters.Add("armajenID", SqlDbType.Int).Value = cmbarmajen.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("departementoId", SqlDbType.Int).Value = cmbdept.SelectedValue.ToString();
+            sda.SelectCommand.Parameters.Add("sasanID", SqlDbType.Int).Value = cmbsasan.SelectedValue.ToString();
+            sda.SelectCommand.ExecuteReader();
+            LoadSasanSai();
+            btncancel.PerformClick();
+        }
+
+        private void dgvsasan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+
+                DataGridViewRow row = this.dgvsasan.Rows[e.RowIndex];
+                txtid.Text = row.Cells[0].Value.ToString();
+                dateTimePicker1.Value = Convert.ToDateTime(row.Cells[1].Value.ToString());
+                cmbarmajen.Text = row.Cells[2].Value.ToString();
+                cmbdept.Text = row.Cells[3].Value.ToString();                
+                cmbsasan.Text = row.Cells[4].Value.ToString();
+                txtqtd.Text = row.Cells[5].Value.ToString();
+                txtctrl.Text = "1";
+                btndelete.Enabled = true;
+                btnsave.Text = "Update";
+
+            }
+        }
+
+        private void btncancel_Click(object sender, EventArgs e)
+        {
+            cmbarmajen.Text = "";
+            cmbdept.Text = "";
+            cmbsasan.Text = "";            
+            txtqtd.Text = "";                       
+            btnsave.Enabled = true;
+            btndelete.Enabled = false;
+            btnsave.Text = "Save";
+            txtid.Text = "";
+            txtctrl.Text = "0";
+            txtctrl.Visible = false;
+            txtid.Visible = false;
+            dateTimePicker1.Focus();
+        }
+
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            if (cmbarmajen.Text != "" || cmbdept.Text != "" || cmbsasan.Text != ""  || txtqtd.Text != "" )
+            {
+                if (txtctrl.Text == "0")
+                {
+
+                    SaveSasan();
+                }
+                else
+                {
+                    UpdateSasan();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Prienxe informasaun molok rai dados!");
+            }
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Konfirma delete dadus ida ne'e?", "Delete " + this.Text, MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                DeleteSasan();
+            }
+            else
+            {
+                btncancel.PerformClick();
+            }
+        }
